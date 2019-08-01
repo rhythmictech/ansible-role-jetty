@@ -1,8 +1,10 @@
 ---
 
-- name: Make sure `which` is installed for Jetty
-  yum:
-    name: which
+- name: Make sure necessary packages are installed
+  package:
+    name: 
+      - which
+      - unzip
     state: present
 
 - name: Create Jetty group
@@ -38,7 +40,6 @@
     src: "{{ jetty_home }}/bin/jetty.sh"
     dest: "/etc/init.d/jetty"
     state: link
-    mode: 00750
   when: ansible_facts.service_mgr == 'sysvinit'
   tags: ['jetty', 'sysv', 'service']
 

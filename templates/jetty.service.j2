@@ -1,0 +1,18 @@
+# systemd unit file for jetty
+#
+[Unit]
+Description=Jetty Web Application Server
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+ExecStart=/{{ jetty_home }}/jetty/bin/jetty.sh start
+ExecStop=/{{ jetty_home }}/jetty/bin/jetty.sh stop
+SuccessExitStatus=143
+
+User=jetty
+Group=jetty
+
+[Install]
+WantedBy=multi-user.target

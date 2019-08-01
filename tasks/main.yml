@@ -1,0 +1,62 @@
+---
+
+- name: Make sure `which` is installed for Jetty
+  yum:
+    name: which
+    state: present
+
+- name: Create Jetty group
+  group: 
+    name: jetty
+
+- name: Add Jetty User and Create Home 
+  user:
+    name: jetty
+    group: jetty 
+    create_home: False
+    home: "{{ jetty_home }}"
+    shell: /usr/sbin/nologin
+  tags: ['jetty']
+
+- name: Copy Jetty distribution files 
+  unarchive:
+    src: "{{ role_path }}/files/jetty-distribution-{{ jetty_version }}.tar.gz"
+    dest: "{{ jetty_base_dir }}"
+    owner: jetty
+    group: jetty
+  tags: ['jetty']
+
+- name: Create symlink to Jetty distribution
+  file:
+    src: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}"
+    dest: "{{ jetty_home }}"
+    state: "link"
+  tags: ['jetty']
+
+- name: Install Jetty (sysv)
+  file:
+    src: "{{ jetty_home }}/bin/jetty.sh"
+    dest: "/etc/init.d/jetty"
+    state: link
+    mode: 00750
+  when: ansible_facts.service_mgr == 'sysvinit'
+  tags: ['jetty', 'sysv', 'service']
+
+- name: Install Jetty (systemd)
+  template:
+    src: jetty.service.j2
+    dest: /etc/systemd/system/jetty.service
+    owner: root
+    group: root
+    mode: 00750
+  when: ansible_facts.service_mgr == 'systemd'
+  tags: ['jetty', 'systemd', 'service']
+
+- name: Enable and Start Jetty
+  service: 
+    name: jetty
+    enabled: yes
+    state: started
+  environment:
+    JETTY_HOME: "{{ jetty_home }}"
+  tags: ['jetty', 'service']

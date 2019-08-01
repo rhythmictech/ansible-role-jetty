@@ -1,0 +1,4 @@
+--- 
+skip_list:
+  - '201'  # trailing whitespace
+  - '204'  # line length < 160 chr

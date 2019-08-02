@@ -45,7 +45,7 @@ To log into said image run `molecule login`
 Destroy test container with `molecule destroy`
 
 And if you're testing with packer (or anywhere else locally) you can use 
-`ln -s $(pwd)/ansible-role-jetty rhythmic.jetty` so it will be available to the ansible provisioner
+`ln -s $(pwd)/ansible-role-jetty ~/.ansible/roles/rhythmic.jetty` so it will be available to the ansible provisioner
 
 ## License 
 MIT 

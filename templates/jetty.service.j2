@@ -7,8 +7,8 @@ After=syslog.target network.target
 [Service]
 Type=forking
 
-ExecStart=/{{ jetty_home }}/jetty/bin/jetty.sh start
-ExecStop=/{{ jetty_home }}/jetty/bin/jetty.sh stop
+ExecStart={{ jetty_home }}/bin/jetty.sh start
+ExecStop={{ jetty_home }}/bin/jetty.sh stop
 SuccessExitStatus=143
 
 User=jetty

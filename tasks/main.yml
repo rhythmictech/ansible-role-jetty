@@ -5,11 +5,13 @@
     name: 
       - which
       - unzip
+      - tar
     state: present
 
 - name: Create Jetty group
   group: 
     name: jetty
+  tags: ['jetty']
 
 - name: Add Jetty User and Create Home 
   user:
@@ -21,9 +23,17 @@
   tags: ['jetty']
 
 - name: Copy Jetty distribution files 
-  unarchive:
+  copy:
     src: "{{ role_path }}/files/jetty-distribution-{{ jetty_version }}.tar.gz"
     dest: "{{ jetty_base_dir }}"
+  tags: ['jetty']
+
+- name: Unzip Jetty distribution files 
+  unarchive:
+    src: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}.tar.gz"
+    dest: "{{ jetty_base_dir }}"
+    creates: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}"
+    remote_src: true
     owner: jetty
     group: jetty
   tags: ['jetty']

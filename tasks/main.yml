@@ -31,22 +31,22 @@
     path: "{{ jetty_home | dirname }}"
     state: directory
 
-- name: Make sure jetty_base_dir exists
+- name: Make sure jetty_base exists
   file: 
-    path: "{{ jetty_base_dir }}"
+    path: "{{ jetty_base }}"
     state: directory
 
 - name: Copy Jetty distribution files 
   copy:
     src: "{{ role_path }}/files/jetty-distribution-{{ jetty_version }}.tar.gz"
-    dest: "{{ jetty_base_dir }}"
+    dest: "{{ jetty_base }}"
   tags: ['jetty']
 
 - name: Unzip Jetty distribution files 
   unarchive:
-    src: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}.tar.gz"
-    dest: "{{ jetty_base_dir }}"
-    creates: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}"
+    src: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}.tar.gz"
+    dest: "{{ jetty_base }}"
+    creates: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}"
     remote_src: true
     owner:  "{{ jetty_user }}"
     group: "{{ jetty_group }}"
@@ -54,7 +54,7 @@
 
 - name: Create symlink to Jetty distribution
   file:
-    src: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}"
+    src: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}"
     dest: "{{ jetty_home }}"
     state: "link"
   tags: ['jetty']

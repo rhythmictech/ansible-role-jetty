@@ -10,7 +10,7 @@ There are three defaults that can be altered:
 - `jetty_version: 9.4.9.v20180320`
     - the jetty version - currently this is the only version supported
     - the distribution file is pulled from `files`
-- `jetty_base_dir: /opt`
+- `jetty_base: /opt`
     - where to unzip the jetty distribution
 - `jetty_home: /opt/jetty`
     - symlink to become `JETTY_HOME`

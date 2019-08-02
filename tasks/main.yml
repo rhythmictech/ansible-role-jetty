@@ -6,14 +6,14 @@
 
 - name: Make sure necessary packages are installed
   package:
-    name: 
+    name:
       - which
       - unzip
       - tar
     state: present
 
 - name: Create Jetty group
-  group: 
+  group:
     name: "{{ jetty_group }}"
   tags: ['jetty']
 
@@ -27,28 +27,28 @@
   tags: ['jetty']
 
 - name: Make sure jetty_home exists
-  file: 
+  file:
     path: "{{ jetty_home | dirname }}"
     state: directory
 
 - name: Make sure jetty_base exists
-  file: 
+  file:
     path: "{{ jetty_base }}"
     state: directory
 
-- name: Copy Jetty distribution files 
+- name: Copy Jetty distribution files
   copy:
     src: "{{ role_path }}/files/jetty-distribution-{{ jetty_version }}.tar.gz"
     dest: "{{ jetty_base }}"
   tags: ['jetty']
 
-- name: Unzip Jetty distribution files 
+- name: Unzip Jetty distribution files
   unarchive:
     src: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}.tar.gz"
     dest: "{{ jetty_base }}"
     creates: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}"
     remote_src: true
-    owner:  "{{ jetty_user }}"
+    owner: "{{ jetty_user }}"
     group: "{{ jetty_group }}"
   tags: ['jetty']
 
@@ -71,14 +71,14 @@
   template:
     src: jetty.service.j2
     dest: /etc/systemd/system/jetty.service
-    owner:  "{{ jetty_user }}"
+    owner: "{{ jetty_user }}"
     group: "{{ jetty_group }}"
     mode: 00750
   when: ansible_facts.service_mgr == 'systemd'
   tags: ['jetty', 'systemd', 'service']
 
 - name: Enable and Start Jetty
-  service: 
+  service:
     name: jetty
     enabled: yes
     state: started

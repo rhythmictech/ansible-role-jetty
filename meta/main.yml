@@ -18,17 +18,17 @@ galaxy_info:
   # (usually master) will be used.
   # github_branch:
 
- 
+
   platforms:
     - name: centos
       versions:
         - 7
 
-  galaxy_tags: 
+  galaxy_tags:
     - jetty
     - java
 
-dependencies: 
+dependencies:
   - name: geerlingguy.java
     version: 1.9.5
     when: "ansible_os_family == 'RedHat'"

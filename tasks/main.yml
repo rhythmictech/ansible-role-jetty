@@ -1,5 +1,9 @@
 ---
 
+# - name: Check for Jetty 
+#   shell: which jetty
+#   register: which_jetty
+
 - name: Make sure necessary packages are installed
   package:
     name: 
@@ -10,17 +14,27 @@
 
 - name: Create Jetty group
   group: 
-    name: jetty
+    name: "{{ jetty_group }}"
   tags: ['jetty']
 
-- name: Add Jetty User and Create Home 
+- name: Add Jetty User
   user:
-    name: jetty
-    group: jetty 
+    name: "{{ jetty_user }}"
+    group: "{{ jetty_group }}"
     create_home: False
     home: "{{ jetty_home }}"
     shell: /usr/sbin/nologin
   tags: ['jetty']
+
+- name: Make sure jetty_home exists
+  file: 
+    path: "{{ jetty_home | dirname }}"
+    state: directory
+
+- name: Make sure jetty_base_dir exists
+  file: 
+    path: "{{ jetty_base_dir }}"
+    state: directory
 
 - name: Copy Jetty distribution files 
   copy:
@@ -34,8 +48,8 @@
     dest: "{{ jetty_base_dir }}"
     creates: "{{ jetty_base_dir }}/jetty-distribution-{{ jetty_version }}"
     remote_src: true
-    owner: jetty
-    group: jetty
+    owner:  "{{ jetty_user }}"
+    group: "{{ jetty_group }}"
   tags: ['jetty']
 
 - name: Create symlink to Jetty distribution
@@ -57,8 +71,8 @@
   template:
     src: jetty.service.j2
     dest: /etc/systemd/system/jetty.service
-    owner: root
-    group: root
+    owner:  "{{ jetty_user }}"
+    group: "{{ jetty_group }}"
     mode: 00750
   when: ansible_facts.service_mgr == 'systemd'
   tags: ['jetty', 'systemd', 'service']

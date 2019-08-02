@@ -6,13 +6,14 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
+Environment=JETTY_HOME={{ jetty_home }}
 
 ExecStart={{ jetty_home }}/bin/jetty.sh start
 ExecStop={{ jetty_home }}/bin/jetty.sh stop
 SuccessExitStatus=143
 
-User=jetty
-Group=jetty
+User={{ jetty_user }}
+Group={{ jetty_group }}
 
 [Install]
 WantedBy=multi-user.target

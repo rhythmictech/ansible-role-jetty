@@ -2,7 +2,8 @@
 Ansible Role for Jetty 
 
 ## Requirements
-- https://github.com/geerlingguy/ansible-role-java
+- [geerlingguy.java](https://github.com/geerlingguy/ansible-role-java)
+- [geerlingguy.repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel)
 
 ## Role Variables 
 There are three defaults that can be altered:

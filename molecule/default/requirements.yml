@@ -5,6 +5,3 @@
   java_packages:
     - java-1.8.0-openjdk
   java_home: /etc/alternatives/jre
-
-- src: geerlingguy.repo-epel
-  version: "1.2.4"

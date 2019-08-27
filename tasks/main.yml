@@ -1,6 +1,6 @@
 ---
 
-# - name: Check for Jetty 
+# - name: Check for Jetty
 #   shell: which jetty
 #   register: which_jetty
 

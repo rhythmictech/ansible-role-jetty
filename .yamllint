@@ -1,4 +1,3 @@
----
 extends: default
 
 rules:
@@ -8,8 +7,5 @@ rules:
   brackets:
     max-spaces-inside: 1
     level: error
-  line-length:
-    max: 140
-    level: warning
+  line-length: disable
   truthy: disable
-  trailing-spaces: disable

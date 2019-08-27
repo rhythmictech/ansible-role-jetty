@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    box: bento/amazonlinux-2
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: /${HOME}/.ansible/roles
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

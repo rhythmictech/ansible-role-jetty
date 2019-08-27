@@ -2,7 +2,7 @@
 # defaults file for ansible-role-jetty
 
 jetty_version: 9.4.9.v20180320
-jetty_base: /opt
-jetty_home: /opt/jetty
+jetty_base: /opt/jetty_base
+jetty_home: /opt/jetty_home
 jetty_user: jetty
 jetty_group: jetty

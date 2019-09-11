@@ -1,0 +1,48 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:---
+name: Molecule Test
+
+on: [push, commit]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.5, 3.6, 3.7]
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          path: molecule_demo
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          sudo apt install docker
+          python -m pip install --upgrade pip
+          pip install ansible==2.8.1 \
+              ansible-lint==4.1.0 \
+              molecule==2.20.2 
+      - name: Test with molecule
+        run: |
+          molecule test
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.

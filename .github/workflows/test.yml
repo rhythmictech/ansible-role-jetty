@@ -29,4 +29,4 @@ jobs:
               molecule==2.20.2 
       - name: Test with molecule
         run: |
-          molecule test --debug
+          molecule --debug test

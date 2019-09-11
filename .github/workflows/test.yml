@@ -26,7 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install ansible==2.8.1 \
               ansible-lint==4.1.0 \
-              molecule==2.20.2 
+              molecule==2.20.2 \
+              docker==4.0.2
       - name: Test with molecule
         run: |
           molecule --debug test

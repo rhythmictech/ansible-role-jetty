@@ -1,6 +1,8 @@
 # Ansible Role: Jetty
 Ansible Role for Jetty 
 
+![](https://github.com/rhythmictech/ansible-role-jetty/workflows/Molecule%20Test/badge.svg)
+
 ## Requirements
 - [geerlingguy.java](https://github.com/geerlingguy/ansible-role-java)
 - [geerlingguy.repo-epel](https://github.com/geerlingguy/ansible-role-repo-epel)

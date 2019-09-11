@@ -1,5 +1,5 @@
 # Ansible Role: Jetty
-![](https://github.com/rhythmictech/ansible-role-jetty/workflows/Molecule%20Test/badge.svg)
+[![](https://github.com/rhythmictech/ansible-role-jetty/workflows/Molecule%20Test/badge.svg)](https://github.com/rhythmictech/ansible-role-jetty/actions)
 
 Ansible Role to install Jetty 
 

@@ -1,9 +1,5 @@
 ---
 
-# - name: Check for Jetty
-#   shell: which jetty
-#   register: which_jetty
-
 - name: Make sure necessary packages are installed
   package:
     name:
@@ -28,35 +24,24 @@
 
 - name: Make sure jetty_home exists
   file:
-    path: "{{ jetty_home | dirname }}"
-    state: directory
-
-- name: Make sure jetty_base exists
-  file:
-    path: "{{ jetty_base }}"
+    path: "{{ jetty_home }}"
     state: directory
 
 - name: Copy Jetty distribution files
   copy:
     src: "{{ role_path }}/files/jetty-distribution-{{ jetty_version }}.tar.gz"
-    dest: "{{ jetty_base }}"
+    dest: "{{ jetty_home }}"
   tags: ['jetty']
 
 - name: Unzip Jetty distribution files
   unarchive:
-    src: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}.tar.gz"
-    dest: "{{ jetty_base }}"
-    creates: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}"
+    src: "{{ jetty_home }}/jetty-distribution-{{ jetty_version }}.tar.gz"
+    dest: "{{ jetty_home }}"
+    extra_opts:
+      - --strip-components=1
     remote_src: true
     owner: "{{ jetty_user }}"
     group: "{{ jetty_group }}"
-  tags: ['jetty']
-
-- name: Create symlink to Jetty distribution
-  file:
-    src: "{{ jetty_base }}/jetty-distribution-{{ jetty_version }}"
-    dest: "{{ jetty_home }}"
-    state: "link"
   tags: ['jetty']
 
 - name: Install Jetty (sysv)

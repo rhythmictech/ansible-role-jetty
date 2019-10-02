@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: jetty
   author: Steven Black @sblack4
   description: Ansible Role to install Jetty and JDK 8
   company: Rhythmic Technologies

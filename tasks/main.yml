@@ -20,6 +20,8 @@
     create_home: False
     home: "{{ jetty_home }}"
     shell: /usr/sbin/nologin
+  when:
+    jetty_create_jetty_user
   tags: ['jetty']
 
 - name: Make sure jetty_home exists

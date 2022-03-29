@@ -6,3 +6,5 @@ jetty_base: /opt/jetty_base
 jetty_home: /opt/jetty_home
 jetty_user: jetty
 jetty_group: jetty
+jetty_create_jetty_user: True
+

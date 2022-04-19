@@ -28,10 +28,3 @@ galaxy_info:
   galaxy_tags:
     - jetty
     - java
-
-dependencies:
-  - name: geerlingguy.java
-    version: 1.9.5
-    when: "ansible_os_family == 'RedHat'"
-    java_packages:
-      - java-1.8.0-openjdk
